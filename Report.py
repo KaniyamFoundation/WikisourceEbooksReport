@@ -3,7 +3,8 @@ import sqlite3
 
 #http://tools.wmflabs.org/wsexport/logs.sqlite
 
-sqlite_file = '~/Downloads/logs.sqlite' 
+sqlite_file = 'logs.sqlite' 
+
 #sqlite_file = 'http://tools.wmflabs.org/wsexport/logs.sqlite'
 
 conn = sqlite3.connect(sqlite_file)
@@ -32,10 +33,7 @@ i = 1
 
 for aline in ReportList: 
     booktitle,bookformat,bookcount = aline
-    booktitle= unicode(booktitle)
-    bookformat=unicode(bookformat)
-    bookcount = unicode(bookcount)
-
+    
     if aBookDetail["title"] == None :
        aBookDetail["title"] = booktitle
        aBookDetail[bookformat] = bookcount
@@ -44,14 +42,10 @@ for aline in ReportList:
        aBookDetail[bookformat] = bookcount
     else:
        aCSVLine = aBookDetail["title"]
-       aCSVLine = aCSVLine + ',' + ','.join([(aBookDetail[aform]) 
-                   for aform in allFormats])+ "\n"
-
-
-       #aCSVLine = unicode(aCSVLine) +',' + unicode(',').join([unicode(aBookDetail[aform]) 
-       #            for aform in allFormats])+unicode("\n")
-       #outfile.write(aCSVLine)
-       print aCSVLine
+       aCSVLine = aCSVLine + ',' + ','.join([ str(aBookDetail[aform]) 
+                   for aform in allFormats])
+       # Write to a File
+       print(aCSVLine)
        for aFormat in allFormats:
            aBookDetail[aFormat] = 0 
        aBookDetail["title"] = booktitle
@@ -60,8 +54,8 @@ for aline in ReportList:
 aCSVLine = aBookDetail["title"]
 aCSVLine = aCSVLine +',' + ','.join([str(aBookDetail[aform]) 
              for aform in allFormats])+"\n"
-
-outfile.write(aCSVLine)
+# Writing Last Book Details
+#outfile.write(aCSVLine)
 
 
 outfile.close()
