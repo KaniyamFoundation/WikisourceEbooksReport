@@ -21,8 +21,14 @@ allFormats = ["atom","epub","epub-2","epub-3","htmlz","mobi","odt","pdf",
             "pdf-a4","pdf-a5","pdf-a6","pdf-letter","rtf","txt","xhtml"]
 
 aBookDetail["title"] = None
+aCSVLine = "Title"
 for aFormat in allFormats:
     aBookDetail[aFormat] = 0
+    
+aCSVLine = aCSVLine + ',' + ','.join([ aform 
+                   for aform in allFormats]) + "\n"
+
+outfile.write(aCSVLine)
 
 c.execute(query)
 
@@ -34,18 +40,21 @@ i = 1
 for aline in ReportList: 
     booktitle,bookformat,bookcount = aline
     
+    # Reading Very First Line and populating Dictionary
     if aBookDetail["title"] == None :
+       
        aBookDetail["title"] = booktitle
        aBookDetail[bookformat] = bookcount
-      
+    #Reading Same book detail and populating Dictionary  
     elif aBookDetail["title"] ==  booktitle :
        aBookDetail[bookformat] = bookcount
+    #Reading Differnt Book,Processing Dict Contents and Write to File
     else:
        aCSVLine = aBookDetail["title"]
        aCSVLine = aCSVLine + ',' + ','.join([ str(aBookDetail[aform]) 
-                   for aform in allFormats])
+                   for aform in allFormats]) + "\n"
        # Write to a File
-       print(aCSVLine)
+       outfile.write(aCSVLine) 
        for aFormat in allFormats:
            aBookDetail[aFormat] = 0 
        aBookDetail["title"] = booktitle
@@ -55,9 +64,6 @@ aCSVLine = aBookDetail["title"]
 aCSVLine = aCSVLine +',' + ','.join([str(aBookDetail[aform]) 
              for aform in allFormats])+"\n"
 # Writing Last Book Details
-#outfile.write(aCSVLine)
-
-
+outfile.write(aCSVLine)
 outfile.close()
-
 
