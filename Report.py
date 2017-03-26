@@ -39,8 +39,6 @@ c.execute(query)
 ReportList = c.fetchall()
 conn.close()
 
-i = 1
-
 for aline in ReportList: 
     booktitle,bookformat,bookcount = aline
     
