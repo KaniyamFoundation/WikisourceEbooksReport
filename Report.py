@@ -1,16 +1,12 @@
 # -*- coding: utf-8 -*-
 import sqlite3
 import wget
-url = 'http://www.futurecrew.com/skaven/song_files/mp3/razorback.mp3'
-filename = wget.download(url)
+import csv 
 
 sqlite_file_Url  = "http://tools.wmflabs.org/wsexport/logs.sqlite"
 sqlite_file = wget.download(sqlite_file_Url) 
 
-#http://tools.wmflabs.org/wsexport/logs.sqlite
-#sqlite_file = 'http://tools.wmflabs.org/wsexport/logs.sqlite'
-
-sqlite_file = 'logs.sqlite'
+#sqlite_file = 'logs.sqlite'
 conn = sqlite3.connect(sqlite_file)
 c = conn.cursor()
 
@@ -29,6 +25,8 @@ aCSVLine = "Title"
 for aFormat in allFormats:
     aBookDetail[aFormat] = 0
     
+#writer = csv.DictWriter(csvfile, fieldnames=['title']+allFormats) 
+
 aCSVLine = aCSVLine + ',' + ','.join([ aform 
                    for aform in allFormats]) + "\n"
 
@@ -38,6 +36,8 @@ c.execute(query)
 
 ReportList = c.fetchall()
 conn.close()
+
+i = 1
 
 for aline in ReportList: 
     booktitle,bookformat,bookcount = aline
@@ -56,7 +56,9 @@ for aline in ReportList:
        aCSVLine = aCSVLine + ',' + ','.join([ str(aBookDetail[aform]) 
                    for aform in allFormats]) + "\n"
        # Write to a File
-       outfile.write(aCSVLine) 
+       #print(aCSVLine.encode('utf-8'))
+       outfile.write(str(aCSVLine.encode('utf-8'))) 
+
        for aFormat in allFormats:
            aBookDetail[aFormat] = 0 
        aBookDetail["title"] = booktitle
@@ -66,6 +68,7 @@ aCSVLine = aBookDetail["title"]
 aCSVLine = aCSVLine +',' + ','.join([str(aBookDetail[aform]) 
              for aform in allFormats])+"\n"
 # Writing Last Book Details
-outfile.write(aCSVLine)
+#print(aCSVLine)
+outfile.write(str(aCSVLine.encode('utf-8')))
 outfile.close()
 
