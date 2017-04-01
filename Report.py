@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import sqlite3
 import wget
-import csv 
 
 sqlite_file_Url  = "http://tools.wmflabs.org/wsexport/logs.sqlite"
 sqlite_file = wget.download(sqlite_file_Url) 
@@ -24,8 +23,6 @@ aBookDetail["title"] = None
 aCSVLine = "Title"
 for aFormat in allFormats:
     aBookDetail[aFormat] = 0
-    
-#writer = csv.DictWriter(csvfile, fieldnames=['title']+allFormats) 
 
 aCSVLine = aCSVLine + ',' + ','.join([ aform 
                    for aform in allFormats]) + "\n"
@@ -67,8 +64,8 @@ for aline in ReportList:
 aCSVLine = aBookDetail["title"]
 aCSVLine = aCSVLine +',' + ','.join([str(aBookDetail[aform]) 
              for aform in allFormats])+"\n"
+
 # Writing Last Book Details
 #print(aCSVLine)
 outfile.write(str(aCSVLine.encode('utf-8')))
 outfile.close()
-
