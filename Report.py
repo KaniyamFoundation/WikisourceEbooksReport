@@ -38,7 +38,7 @@ i = 1
 
 for aline in ReportList: 
     booktitle,bookformat,bookcount = aline
-    
+    booktitle = booktitle.replace(",","")
     # Reading Very First Line and populating Dictionary
     if aBookDetail["title"] == None :
        
