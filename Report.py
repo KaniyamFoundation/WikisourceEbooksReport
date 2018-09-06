@@ -11,10 +11,12 @@ if not os.path.isdir("./data"):
     os.mkdir("./data")
 
 
+os.system('rm logs.sqlite')
+
 
 sqlite_file_Url  = "http://tools.wmflabs.org/wsexport/logs.sqlite"
-sqlite_file = "logs.sqlite"
-#sqlite_file = wget.download(sqlite_file_Url) 
+#sqlite_file = "logs.sqlite"
+sqlite_file = wget.download(sqlite_file_Url) 
 
 #sqlite_file = 'logsApr01.sqlite'
 
