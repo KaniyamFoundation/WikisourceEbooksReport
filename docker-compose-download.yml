@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+  download:
+    build:
+      context: .
+      dockerfile: ./download.Dockerfile
+    container_name: download
+    environment:
+      GZIP_FILE: "https://ws-export.wmcloud.org/logs/2024.sql.gz"
+      SQL_FILENAME: "2024.sql"
+      GZIP_FILENAME: "2024.sql.gz"
+    volumes:
+      - ${PWD}/data:/data
+
