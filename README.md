@@ -15,7 +15,18 @@ Create similar report as http://freetamilebooks.com/htmlbooks/download-report.ht
 
 
 ### How to run ?
-> ./run.sh
+
+- Step 1: Create a data folder
+
+```shell
+mkdir data
+```
+
+- Step 2: Execute ./run.sh
+
+```shell
+./run.sh
+```
 
 
 
