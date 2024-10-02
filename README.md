@@ -14,6 +14,13 @@ count report for each book.
 Create similar report as http://freetamilebooks.com/htmlbooks/download-report.html
 
 
+### How to run ?
+> ./run.sh
+
+
+
 Source: https://goinggnu.wordpress.com/2017/03/03/project-ideas-part-1-looking-for-contributors/
+
+
 
 
