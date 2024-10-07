@@ -14,6 +14,24 @@ count report for each book.
 Create similar report as http://freetamilebooks.com/htmlbooks/download-report.html
 
 
+### How to run ?
+
+- Step 1: Create a data folder
+
+```shell
+mkdir data
+```
+
+- Step 2: Execute ./run.sh
+
+```shell
+./run.sh
+```
+
+
+
 Source: https://goinggnu.wordpress.com/2017/03/03/project-ideas-part-1-looking-for-contributors/
+
+
 
 

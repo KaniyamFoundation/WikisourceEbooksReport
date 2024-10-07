@@ -1,0 +1,42 @@
+version: '3.9'
+
+services:
+
+  db:
+    image: mariadb:10.11
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypassword
+    build:
+      context: .
+      dockerfile: ./db.Dockerfile
+    volumes:
+      - ./data/2024.sql:/docker-entrypoint-initdb.d/2024.sql
+    ports:
+      - "3306:3306"
+    networks:
+      - db_network
+
+  report:
+    build:
+      context: .
+      dockerfile: ./report.Dockerfile
+    container_name: report
+    environment:
+      HOST_DB: db
+      DB_USER_NAME: myuser
+      DB_USER_PASSWORD: mypassword
+      DB_NAME: mydatabase
+    networks:
+      - db_network
+    volumes:
+      - ./ta:/app/ta
+      - ./te:/app/te
+      - ./bn:/app/bn
+
+networks:
+  db_network:
+    driver: bridge
